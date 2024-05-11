@@ -93,6 +93,11 @@ plt.show()
 
 
 ## Output:
-Show your results here
+
+![image](https://github.com/niraunjana/NN-Project-Based-Experiment/assets/119395610/37153fd9-1fb9-4035-9707-b5599b87adb6)
+
+![image](https://github.com/niraunjana/NN-Project-Based-Experiment/assets/119395610/94d2c6d9-8162-4902-855d-6f0f20a7edf5)
+
+
 
 
