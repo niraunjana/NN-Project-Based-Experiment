@@ -1,4 +1,4 @@
-#Project Based Experiments
+## Project Based Experiments
 ## Objective :
  Build a Multilayer Perceptron (MLP) to classify handwritten digits in python
 ## Steps to follow:
@@ -28,7 +28,69 @@ If the model is not performing well, experiment with different architectures, re
 Visualize the training/validation loss and accuracy over epochs to understand the training process. Visualize some misclassified examples to gain insights into potential improvements.
 
 # Program:
-Insert your code here
+```
+DEVELOPED BY: NIRAUNJANA GAYATHRI G R
+REGISTER NUMBER: 212222230096
+```
+```
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.utils import to_categorical
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, classification_report
+
+# Step 1: Dataset Acquisition
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+# Step 2: Data Preprocessing
+x_train = x_train / 255.0
+x_test = x_test / 255.0
+
+x_train_flat = x_train.reshape((-1, 784))
+x_test_flat = x_test.reshape((-1, 784))
+
+# Step 3: Data Splitting
+x_train_split, x_val_split = x_train_flat[:50000], x_train_flat[50000:]
+y_train_split, y_val_split = y_train[:50000], y_train[50000:]
+
+# Step 4: Model Architecture
+model = Sequential([
+    Dense(128, activation='relu', input_shape=(784,)),
+    Dense(64, activation='relu'),
+    Dense(10, activation='softmax')
+])
+
+# Step 5: Compile the Model
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Step 6: Training
+history = model.fit(x_train_split, y_train_split, epochs=10, batch_size=64, validation_data=(x_val_split, y_val_split))
+
+# Step 7: Evaluation
+test_loss, test_acc = model.evaluate(x_test_flat, y_test)
+print("Test Accuracy:", test_acc)
+y_pred = model.predict_classes(x_test_flat)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+print("\nClassification Report:")
+print(class_report)
+
+# Step 8: Visualization
+plt.plot(history.history['accuracy'], label='accuracy')
+plt.plot(history.history['val_accuracy'], label='val_accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend(loc='lower right')
+plt.show()
+```
+
 
 ## Output:
 Show your results here
